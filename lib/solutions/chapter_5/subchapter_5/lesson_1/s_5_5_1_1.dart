@@ -13,8 +13,10 @@ class S5511 extends StatelessWidget {
         Text(counter2.toString()),
         ElevatedButton(
           onPressed: () async {
-            counter1F();
-            counter2F();
+            Future<void> future = counter1F();
+
+            Future<void> future2 = counter2F();
+            await Future.wait([future, future2]);
             if (kDebugMode) {
               print("ich habe fertig.");
             }
@@ -35,7 +37,7 @@ int counter1 = 0;
 int counter2 = 0;
 
 Future<void> counter1F() async {
-  await warteKurz(500);
+  await warteKurz(200);
   counter1++;
   if (kDebugMode) {
     print("Mehtode 1111111 inkrementiert");
@@ -43,7 +45,7 @@ Future<void> counter1F() async {
 }
 
 Future<void> counter2F() async {
-  await warteKurz(500);
+  await warteKurz(200);
   counter2++;
   if (kDebugMode) {
     print("Mehtode 2222222 inkrementiert");
